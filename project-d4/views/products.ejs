@@ -1,14 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("partials/header") %>
+<%- include("partials/navbar") %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<div class="product-container">
+<% allProduct.forEach(product => { %>
+    <div class="card" style="width: 18rem;">
+        <img src="<%= product.imageUrl %>" class="card-img-top" alt="...">
+        <div class="card-body">
+        <p class="card-text"><%= product.price %></p>
+          <h5 class="card-title"><%= product.productName %></h5>
+          <p class="card-text"><%= product.description %></p>
+          <p class="card-text"><%= product.createdAt %></p>
+          <a href="/product/show/<%= product._id%>" class="btn btn-primary">show</a>
+        </div>
+      </div>
+<% }); %> 
+</div>
 
-<body>
-
-</body>
-
-</html>
+<%- include("partials/footer") %>

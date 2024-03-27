@@ -1,8 +1,9 @@
 const express = require("express");
+const app = express();
 const User = require("./models/user");
+const path = require("path");
 const mongoose = require("mongoose");
 const Product = require("./models/product");
-const app = express();
 const PORT = 5000;
 
 mongoose.connect("mongodb://127.0.0.1:27017/product").then(() => {
@@ -10,16 +11,23 @@ mongoose.connect("mongodb://127.0.0.1:27017/product").then(() => {
 });
 
 app.set("view engine", "ejs");
-
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/product", (req, res) => {
-  res.render("products");
+app.get("/product", async (req, res) => {
+  const allProduct = await Product.find();
+  res.render("products", { allProduct });
 });
 
 app.get("/product/new", (req, res) => {
   res.render("addProduct");
+});
+
+app.get("/product/show/:id", async (req, res) => {
+  const { id } = req.params;
+  const product = await Product.findById(id);
+  res.render("showProduct", { product });
 });
 
 app.post("/product/new", async (req, res) => {
@@ -30,6 +38,7 @@ app.post("/product/new", async (req, res) => {
     description,
     imageUrl,
   });
+  newProduct.save();
   res.redirect("/product");
 });
 

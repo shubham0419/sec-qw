@@ -1,0 +1,21 @@
+<%- include("partials/header") %>
+<%- include("partials/navbar") %>
+
+<h1>Add product</h1>
+    <form action="/product/new" method="post">
+        <label for="">Product name: </label>
+        <input type="text" name="productName" placeholder="name">
+        <br><br>
+        <label for="">Product price: </label>
+        <input type="number" name="price" placeholder="price">
+        <br></br>
+        <label for="">Product description: </label>
+        <input type="text" name="description" placeholder="description">
+        <br></br>
+        <label for="">Product Image url: </label>
+        <input type="text" name="imageUrl" placeholder="url">
+        <br></br>
+        <button type="submit">Add product</button>
+    </form>
+
+<%- include("partials/footer") %>
